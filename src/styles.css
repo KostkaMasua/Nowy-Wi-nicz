@@ -1,0 +1,492 @@
+:root {
+  --sepia-bg: #f4ecd8;
+  --sepia-panel: #fbf6ea;
+  --ink: #2e2419;
+  --ink-soft: #6b5c47;
+  --accent: #b9770e;
+  --border: #d8c9a8;
+  --shadow: 0 2px 10px rgba(70, 50, 20, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--ink);
+  background: var(--sepia-bg);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  height: 100dvh; /* Android Chrome: pasek adresu nie ucina układu */
+}
+body {
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- Header ---- */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 18px;
+  background: linear-gradient(180deg, #3a2c18, #2a200f);
+  color: #f4ecd8;
+  box-shadow: var(--shadow);
+  z-index: 500;
+}
+.app-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.app-logo {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.app-header h1 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+.app-sub {
+  font-size: 12px;
+  font-style: italic;
+  color: #c9b48c;
+}
+.app-stats {
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
+  font-size: 13px;
+  color: #d6c6a3;
+}
+.app-stats span {
+  white-space: nowrap;
+}
+.app-actions {
+  display: flex;
+  gap: 8px;
+}
+.btn {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.btn:hover {
+  filter: brightness(1.1);
+}
+.btn-ghost {
+  background: transparent;
+  color: #e8d9b5;
+  border-color: #8a7249;
+}
+
+.import-banner {
+  padding: 8px 18px;
+  background: #efe3c6;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* ---- Body ---- */
+.app-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+.app-side {
+  width: 360px;
+  flex-shrink: 0;
+  background: var(--sepia-panel);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+}
+.app-map {
+  flex: 1;
+  position: relative;
+}
+.map-canvas {
+  position: absolute;
+  inset: 0;
+  background: #d9ccae;
+}
+
+/* ---- Panel ---- */
+.panel,
+.panel-empty {
+  padding: 18px 20px;
+}
+.panel-empty h2 {
+  margin-top: 0;
+}
+.panel-empty p {
+  color: var(--ink-soft);
+  line-height: 1.55;
+  font-size: 14px;
+}
+.panel-section {
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+.panel-section:last-child {
+  border-bottom: none;
+}
+.panel-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+  color: var(--accent);
+}
+.panel h2 {
+  margin: 2px 0 4px;
+  font-size: 22px;
+}
+.panel h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.panel-meta {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* ---- Residents ---- */
+.resident-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.resident-item {
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 10px;
+  transition: background 0.12s, border-color 0.12s;
+}
+.resident-item:hover {
+  background: #fdf8ec;
+  border-color: var(--accent);
+}
+.resident-item.active {
+  background: #fff4df;
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.resident-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+.resident-years {
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+}
+.resident-occ {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* ---- Relations ---- */
+.relation-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.relation-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.relation-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.relation-person {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: underline dotted;
+}
+.relation-person:hover {
+  color: var(--accent);
+}
+.relation-meta {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.relation-type {
+  font-weight: 600;
+}
+
+/* ---- Legend ---- */
+.legend {
+  background: #f1e7cf;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 10px;
+}
+.legend-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  padding: 2px 0;
+}
+.legend-line {
+  width: 34px;
+  border-top-width: 3px;
+  display: inline-block;
+}
+
+.muted {
+  color: var(--ink-soft);
+  font-style: italic;
+  font-size: 13px;
+}
+
+/* Leaflet tooltips w stylu sepii */
+.leaflet-tooltip {
+  font-family: 'Georgia', serif;
+  background: #fbf6ea;
+  border: 1px solid var(--border);
+  color: var(--ink);
+}
+
+/* ---- Elementy panelu dodane pod telefon ---- */
+.sheet-handle {
+  display: none;
+}
+.back-btn {
+  font-family: inherit;
+  font-size: 14px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 14px;
+  color: var(--ink);
+  cursor: pointer;
+}
+.back-arrow {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+.back-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.building-poly {
+  cursor: pointer;
+}
+
+/* ================= TELEFON / MAŁY EKRAN ================= */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 8px 12px;
+    gap: 10px;
+    padding-top: max(8px, env(safe-area-inset-top));
+  }
+  .app-logo {
+    width: 24px;
+    height: 24px;
+  }
+  .app-header h1 {
+    font-size: 16px;
+  }
+  .app-sub {
+    display: none;
+  }
+  .app-stats {
+    display: none;
+  }
+  .app-actions {
+    margin-left: auto;
+  }
+  .app-actions .btn-ghost {
+    display: none;
+  }
+  .btn {
+    min-height: 40px;
+    padding: 6px 12px;
+  }
+  .import-banner {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .app-body {
+    position: relative;
+  }
+  .app-map {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Panel jako „szuflada” u dołu ekranu. */
+  .app-side {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    z-index: 600;
+    display: flex;
+    flex-direction: column;
+    border-right: none;
+    border-top: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 18px rgba(70, 50, 20, 0.25);
+    overflow: hidden;
+    transition: height 0.25s ease;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .app-side.is-peek {
+    height: calc(56px + env(safe-area-inset-bottom));
+  }
+  .app-side.is-open {
+    height: 45%;
+  }
+  .sheet-handle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    width: 100%;
+    min-height: 56px;
+    padding: 6px 16px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--sepia-panel);
+    border: none;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    position: relative;
+    text-align: left;
+  }
+  .sheet-grip {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 38px;
+    height: 4px;
+    margin-left: -19px;
+    border-radius: 2px;
+    background: var(--border);
+  }
+  .sheet-title {
+    flex: 1;
+    margin-top: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sheet-chevron {
+    margin: 6px 4px 0 0;
+    width: 9px;
+    height: 9px;
+    border-top: 2px solid var(--accent);
+    border-left: 2px solid var(--accent);
+    transform: rotate(45deg); /* ^ — szuflada zwinięta */
+    transition: transform 0.2s;
+  }
+  .is-open .sheet-chevron {
+    transform: rotate(225deg); /* v — szuflada otwarta */
+    margin-top: 2px;
+  }
+  .sheet-content {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .panel,
+  .panel-empty {
+    padding: 14px 16px;
+  }
+  .panel h2 {
+    font-size: 19px;
+  }
+  .back-btn {
+    min-height: 44px;
+    width: 100%;
+  }
+  /* Większe pola dotyku. */
+  .resident-item {
+    padding: 12px 14px;
+  }
+  .relation-person {
+    padding: 6px 0;
+    font-size: 16px;
+  }
+  .relation-item {
+    padding: 2px 0;
+  }
+
+  /* Kontrolki zoomu Leaflet — większe pod palec. */
+  .leaflet-touch .leaflet-bar a {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
